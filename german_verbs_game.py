@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 26 09:11:00 2021
+# Deutche Verben Spiele - developed for Carolina
+# April 2021
+# version 0.8
 
-@author: BRGUBO
-"""
 import time
 import pandas as pd
 import random
@@ -11,8 +9,8 @@ from datetime import datetime
 import winsound
 import sys
 import pyfiglet
-
-
+#ascii_font ='3-d'
+from termcolor import colored
 
 def clean_screen():
     print('\n'*25)
@@ -20,8 +18,10 @@ def clean_screen():
 def intro():
     winsound.PlaySound('intro.wav', winsound.SND_ASYNC)
     ascii_intro_banner = pyfiglet.figlet_format("Hello Carolina")
-    print(ascii_intro_banner)
-    ascii_intro_banner2 = pyfiglet.figlet_format("Deutche Verben")
+    colored_ascii_intro_banner = colored(ascii_intro_banner, 'red')
+
+    print(colored_ascii_intro_banner)
+    ascii_intro_banner2 = pyfiglet.figlet_format("Deutche Verben lernen")
     print(ascii_intro_banner2)
     time.sleep(12)
 
@@ -55,7 +55,9 @@ while True:
     print(f'Du hast {min} Minuten un Minecraft zu spielen ')
 
     ascii_verben = pyfiglet.figlet_format(rnd_choose[0])
-    print(ascii_verben)
+    colored_ascii_verben=colored(ascii_verben, 'yellow')
+    print(colored_ascii_verben)
+
 
     print(f'\nDie Verb ist: {rnd_choose[0]}\n')
     ans = input(f'{rnd_choose[1]} ')
@@ -77,7 +79,12 @@ while True:
     else:
         winsound.PlaySound('wrong_sound.wav', winsound.SND_ASYNC)
         ascii_verben = pyfiglet.figlet_format('Nein!')
-        print(ascii_verben)
+        colored_ascii_verben = colored(ascii_verben,'red' )
+        print(colored_ascii_verben)
+
+        ascii_answer = pyfiglet.figlet_format(f'{rnd_choose[1]} {rnd_choose[2]}')
+        colored_ascii_answer = colored(ascii_answer, 'blue')
+        print(colored_ascii_answer)
 
         print('Leider nicht Korrect')
         print(f'{rnd_choose[1]} {rnd_choose[2]}')
