@@ -2,53 +2,25 @@
 # April 2021
 # version 0.9
 
+import sys
 import time
 import pandas as pd
 import random
 from datetime import datetime
 import winsound
-import sys
-import pyfiglet
-# ascii_font ='3-d'
-from termcolor import colored
-
 from ascii_art_text import AsciiArt
+from verben_functions import txt_file_init, intro, clean_screen, save_min_to_file
 
+data = 'german_verbs.xlsx'
 
-def clean_screen():
-    print('\n' * 25)
+try:
+    verb_df = pd.read_excel(data, header=0)
+except OSError:
+    print(f'Could not read database {data}')
+    sys.exit()
 
-
-def intro():
-    winsound.PlaySound('intro2.wav', winsound.SND_ASYNC)
-
-    txt_art = AsciiArt("Hello Carolina", 'blue')
-    print(txt_art.build_ascii_art())
-
-    txt_art = AsciiArt("Deutche Verben lernen", 'red')
-    print(txt_art.build_ascii_art())
-
-    time.sleep(6)
-
-
-def save_min_to_file(min):
-    with open('verben_minuten.txt', 'a') as f:
-        now = datetime.now()
-        time_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        f.write(f'\nyou won {min} minutes on {time_string}\n')
-        f.close()
-
-
-def txt_file_init():
-    with open('verben_minuten.txt', 'w') as f:
-        now = datetime.now()
-        time_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        f.write(f'\nDeutche Verben Spiele - Session open on: {time_string}\n')
-        f.close()
-
-
-verb_df = pd.read_excel('german_verbs.xlsx', header=0)
 df_rows = len(verb_df) - 1
+
 min = 0
 txt_file_init()
 intro()
@@ -78,6 +50,9 @@ while True:
         input('Drucken etwas zu weitermachen')
 
     elif ans == str(99):
+        clean_screen()
+        txt_art = AsciiArt(f'Bye Carol', 'blue')
+        print(txt_art.build_ascii_art())
         save_min_to_file(min)
         print('Bis Bald!!!')
         break
@@ -90,10 +65,6 @@ while True:
 
         txt_art = AsciiArt(f'{rnd_choose[1]}  {rnd_choose[2]}', 'blue')
         print(txt_art.build_ascii_art())
-
-        # ascii_answer = pyfiglet.figlet_format(f'{rnd_choose[1]} {rnd_choose[2]}')
-        # colored_ascii_answer = colored(ascii_answer, 'blue')
-        # print(colored_ascii_answer)
 
         print('*** Leider das ist nicht Korrect ***')
         print(f'\n Das richtige ist:  {rnd_choose[1]} {rnd_choose[2]}')
