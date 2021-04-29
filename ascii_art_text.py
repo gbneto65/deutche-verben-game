@@ -7,6 +7,7 @@ from termcolor import colored
 
 
 class AsciiArt:
+    # create ASCII art
 
     def __init__(self, ascii_text, text_color):
         self.ascii_text = ascii_text
